@@ -11,7 +11,6 @@ from django.contrib.auth import get_user_model
 from .forms import IssueForm
 
 
-
 class DeleteIssueView(DeleteView):
     model = Issue
     success_url = '/issue_tickets'
@@ -22,6 +21,7 @@ class UpdateIssueView(LoginRequiredMixin, UpdateView):
     model = Issue
     fields = ['closed_on', 'closed_by']  # include the fields you want to update here
     success_url = '/issue_tickets/'  # replace with your own success URL
+    login_url = '/login'
 
     def form_valid(self, form):
         issue = form.save(commit=False)
@@ -33,10 +33,11 @@ class UpdateIssueView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class CreateIssueView(CreateView):
+class CreateIssueView(LoginRequiredMixin, CreateView):
     model = Issue
     form_class = IssueForm
     success_url = '/issue_tickets'
+    login_url = '/login'
 
     def form_valid(self, form):
         # Set the value of closed_on to None before saving the form
@@ -51,12 +52,8 @@ class IssueListView(LoginRequiredMixin, ListView):
     model = Issue
     context_object_name = "issue"
     template_name = "issue/issue_list.html"
-    login_url = '/admin'
+    login_url = '/login'
 
-
-# def list_issue(request):
-#     all_issues = Issue.objects.all()
-#     return render(request, 'issue/issue_list.html', {'issue': all_issues})
 
 class IssueDetailView(DetailView):
     model = Issue
@@ -64,20 +61,7 @@ class IssueDetailView(DetailView):
     template_name = "issue/issue_detail.html"
 
 
-# def detail(request, pk):
-#     try:
-#         ticket = Issue.objects.get(pk=pk)
-#     except Issue.DoesNotExist:
-#         raise Http404("Issue does not exist")
-#     return render(request, 'issue/issue_list.html', {'ticket': ticket})
-
 class ProjectDetailView(DetailView):
     model = Project
     context_object_name = "project"
     template_name = "issue/issue_detail.html"
-
-
-# class UserDetailView(DetailView):
-#     model = User
-#     context_object_name = "user"
-#     template_name = "issue/issue_detail.html"

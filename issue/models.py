@@ -14,19 +14,6 @@ class Project(models.Model):
         return str(self.id)
 
 
-# class User(models.Model):
-#
-#     password = models.CharField(max_length=100, blank=False, null=False)
-#     username = models.CharField(max_length=100, primary_key=True, auto_created=True)
-#     project_id = models.ForeignKey(Project, on_delete=models.SET_DEFAULT, default=0)
-#
-#     def __str__(self):
-#         return self.username
-#
-#     # def __str__(self):
-#     #     return f"{self.username} {self.project_id}"
-#
-
 class Issue(models.Model):
     id = models.IntegerField(auto_created=True, primary_key=True)
     title = models.CharField(max_length=300)

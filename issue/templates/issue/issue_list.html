@@ -6,25 +6,6 @@
 {% block content %}
   <h4 class="my-5" > Open Issues</h4>
 
-
-<!--<div class="row">-->
-<!--  {% for i in issue %}-->
-<!--    {% if i.closed_by == None %}-->
-<!--    <div class="col col-sm-4">-->
-<!--      <div class="card" style="width: 18rem;">-->
-<!--        <p class="card-title">Issue ID: {{ i.id }}</p>-->
-<!--        <p class="card-title">Issue Title: {{ i.title }}</p>-->
-<!--        <a href="{% url 'issue.detail' pk=i.id %}" class="btn btn-primary">Open</a>-->
-<!--        <br>-->
-<!--        <form method="POST" action="{% url 'issue.close' i.pk %}">-->
-<!--          {% csrf_token %}-->
-<!--          <button type="submit" class="btn btn-primary">Close Ticket</button>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    {% endif %}-->
-<!--  {% endfor %}-->
-<!--</div>-->
      <div class = "row row-cols3 g-2">
          {% for i in issue %}
          {% if i.closed_by == None %}
