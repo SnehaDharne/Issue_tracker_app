@@ -10,7 +10,7 @@ class HomeView(TemplateView):
     extra_context = {'today': datetime.today()}
 
 
-class AuthorizedView(LoginRequiredMixin,TemplateView):
+class AuthorizedView(LoginRequiredMixin, TemplateView):
     template_name = 'ticket/authorized.html'
     login_url = '/admin'
 

@@ -8,8 +8,8 @@ class IssuesAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'raised_on', 'opened_by', 'closed_on', 'closed_by', 'project']
 
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'project_id']
+# class UserAdmin(admin.ModelAdmin):
+#     list_display = ['username', 'project_id']
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -17,5 +17,5 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Issue, IssuesAdmin)
-admin.site.register(models.User, UserAdmin)
+# admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Project, ProjectAdmin)

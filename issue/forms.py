@@ -5,7 +5,7 @@ from .models import Issue
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ('title', 'problem_description', 'opened_by', 'project')
+        fields = ('title', 'problem_description', 'project')
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control my-5'}),
             'problem_description': forms.Textarea(attrs={'class': 'form-control mb-5'}),
