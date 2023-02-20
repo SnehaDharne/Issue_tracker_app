@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 > Issue Tracker Application</h1>
+<p>last logged in on: {{today}} </p>
+<a href="{% url 'issue.list' %}" class="btn btn-primary">Check for tickets</a>
+<a href="{% url 'issue.create' %}" class = "btn btn-primary">Create Tickets</a>
+
+{% endblock %}

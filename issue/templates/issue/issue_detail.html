@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="border round">
+ <h3 class="my-5">Title : {{ticket.title}}</h3>
+  <p>Problem Description : {{ticket.problem_description}}</p>
+  <p>Opened On: {{ticket.raised_on}}</p>
+  <p>Opened By: {{ticket.opened_by}}</p>
+  <p>Closed On: {{ticket.closed_on}}</p>
+  <p>Closed By: {{ticket.closed_by}}</p>
+  <p>Project: {{ticket.project}}</p>
+ <a href="{% url 'issue.list' %} " class = "btn btn-secondary my-5">Back</a>
+ <a href="{% url 'issue.delete' pk=ticket.id %} " class = "btn btn-danger my-5">Delete</a>
+ <form method="POST" action="{% url 'issue.close' ticket.pk %}">
+             {% csrf_token %}
+             <button type="submit" class="btn btn-primary"  style="width: 288px">Close Ticket</button>
+ </form>
+<!-- <form method="POST" action="{% url 'issue.delete' ticket.pk %}">-->
+<!--             {% csrf_token %}-->
+<!--             <button type="submit" class="btn btn-danger"  style="width: 288px">Delete</button>-->
+<!-- </form>-->
+</div>
+
+{% endblock %}
