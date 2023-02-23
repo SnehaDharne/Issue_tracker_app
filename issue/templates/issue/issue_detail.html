@@ -4,6 +4,11 @@
 
 <div class="border round">
  <h3 class="my-5">Title : {{ticket.title}}</h3>
+{% if attachments %}
+    <img  class="img-fluid" src="{{ attachment_url }}" alt="Attachment Image">
+{% else %}
+<p>No attachments found.</p>
+{% endif %}
   <p>Problem Description : {{ticket.problem_description}}</p>
   <p>Opened On: {{ticket.raised_on}}</p>
   <p>Opened By: {{ticket.opened_by}}</p>

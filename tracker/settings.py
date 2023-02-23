@@ -127,5 +127,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/issue_tickets'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'attachments')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'C:/Users/sneha/tracker_app/attachments')
 MEDIA_URL = '/attachments/'

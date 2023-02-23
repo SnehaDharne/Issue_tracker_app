@@ -7,7 +7,8 @@ from .models import Issue
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ['title', 'problem_description', 'project']
+        fields = ['title', 'problem_description', 'project','attachment']
+        attachment = forms.FileField(required=False)
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control my-5'}),
             'problem_description': forms.Textarea(attrs={'class': 'form-control mb-5'}),

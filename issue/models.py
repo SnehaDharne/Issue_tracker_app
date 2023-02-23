@@ -18,3 +18,4 @@ class Issue(models.Model):
                                   blank=True)
     closed_on = models.DateTimeField(null=True, default="", blank=True)
     project = models.ForeignKey(Project, on_delete=models.SET_DEFAULT, default=0)
+    attachment = models.FileField(upload_to='attachments/', null=True, blank=True)

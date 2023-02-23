@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -46,7 +46,9 @@ class CreateIssueView(LoginRequiredMixin, CreateView):
         user = self.request.user
         issue.opened_by = user
         issue.raised_on = timezone.datetime.now()
-        issue.attachment = self.request.FILES.get('attachment')
+        attachment = self.request.FILES.get('attachment')
+        if attachment:
+            form.instance.attachment = attachment
         return super().form_valid(form)
 
     def get_form_kwargs(self):
@@ -70,10 +72,37 @@ class IssueListView(LoginRequiredMixin, ListView):
         return issues
 
 
-class IssueDetailView(DetailView):
+# class IssueDetailView(DetailView):
+#
+#     issue = get_object_or_404(Issue, pk=id)
+#     attachment_url = None
+#     if issue.attachment:
+#         attachment_url = issue.attachment.url
+#     context_object_name = "ticket"
+#     template_name = 'issue/issue_detail.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         # context['attachments'] = self.object.attachment
+#         issue = self.object
+#         attachment = issue.attachment
+#         attachment_url = attachment.url
+#         print(attachment_url)
+#         context['attachments'] = attachment
+#         return context
+#
+class IssueDetailView(LoginRequiredMixin, DetailView):
     model = Issue
     context_object_name = "ticket"
     template_name = 'issue/issue_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        issue = self.get_object()
+        context["attachments"] = issue.attachment
+        context["attachment_url"] = issue.attachment.url
+        print(issue.attachment.url)
+        return context
 
 
 class ProjectDetailView(DetailView):
