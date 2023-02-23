@@ -2,7 +2,7 @@ attachment or pictures
 
 reopen issues
 
-project field on issues
+project field on issues done
 
-project wise access to users
+project wise access to users done
 

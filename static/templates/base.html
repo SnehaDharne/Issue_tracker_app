@@ -15,6 +15,13 @@
         <div class = "ms-auto">
 
             {% if user.is_authenticated %}
+
+                     {% if user.is_superuser %}
+                       <a  href = "{% url 'create_project' %}" class = "btn btn-outline-light me-1"> Create Project</a>
+                     {% else %}
+                       <p>Welcome, regular user!</p>
+                      {% endif %}
+
             <a  href = "{% url 'issue.create' %}" class = "btn btn-outline-light me-1"> Create</a>
             <a  href = "{% url 'issue.list' %}" class = "btn btn-outline-light me-1"> Check</a>
             <a  href = "{% url 'logout' %}" class = "btn btn-outline-light me-1"> Logout</a>

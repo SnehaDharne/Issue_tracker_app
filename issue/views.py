@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
-from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import DeleteView
 from .models import Project, Issue
@@ -45,7 +45,14 @@ class CreateIssueView(LoginRequiredMixin, CreateView):
         issue = form.save(commit=False)
         user = self.request.user
         issue.opened_by = user
+        issue.raised_on = timezone.datetime.now()
+        issue.attachment = self.request.FILES.get('attachment')
         return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class IssueListView(LoginRequiredMixin, ListView):
@@ -53,12 +60,20 @@ class IssueListView(LoginRequiredMixin, ListView):
     context_object_name = "issue"
     template_name = "issue/issue_list.html"
     login_url = '/login'
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = super().get_queryset()
+        projects = Project.objects.filter(users=user)
+        issues = queryset.filter(project__in=projects)
+        return issues
 
 
 class IssueDetailView(DetailView):
     model = Issue
     context_object_name = "ticket"
-    template_name = "issue/issue_detail.html"
+    template_name = 'issue/issue_detail.html'
 
 
 class ProjectDetailView(DetailView):
