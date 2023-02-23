@@ -99,9 +99,10 @@ class IssueDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         issue = self.get_object()
-        context["attachments"] = issue.attachment
-        context["attachment_url"] = issue.attachment.url
-        print(issue.attachment.url)
+        if issue.attachment:
+            context["attachments"] = issue.attachment
+            context["attachment_url"] = issue.attachment.url
+            print(issue.attachment.url)
         return context
 
 
